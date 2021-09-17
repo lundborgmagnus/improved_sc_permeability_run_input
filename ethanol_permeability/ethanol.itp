@@ -1,0 +1,116 @@
+[ moleculetype ]
+; Name            nrexcl
+ethanol	3
+
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue   1 LIG rtp LIG  q  0.0
+;  ai    aj funct            c0            c1            c2            c3
+[ atoms ]
+#ifdef HEAVY_H
+     1       C331      1    LIG     C1      1      -0.27      5.963 ; qtot -0.27
+     2       C321      1    LIG     C2      2       0.05      7.979 ; qtot -0.22
+     3       O311      1    LIG    OC2      3      -0.65     13.983 ; qtot -0.87
+     4       HGA3      1    LIG   HC11      4       0.09      3.024 ; qtot -0.78
+     5       HGA3      1    LIG   HC12      5       0.09      3.024 ; qtot -0.69
+     6       HGA3      1    LIG   HC13      6       0.09      3.024 ; qtot -0.6
+     7       HGA2      1    LIG   HC21      7       0.09      3.024 ; qtot -0.51
+     8       HGA2      1    LIG   HC22      8       0.09      3.024 ; qtot -0.42
+     9       HGP1      1    LIG    HO2      9       0.42      3.024 ; qtot 0
+
+#else
+     1       C331      1    LIG     C1      1      -0.27     12.011   ; qtot -0.27
+     2       C321      1    LIG     C2      2       0.05     12.011   ; qtot -0.22
+     3       O311      1    LIG    OC2      3      -0.65     15.999   ; qtot -0.87
+     4       HGA3      1    LIG   HC11      4       0.09      1.008   ; qtot -0.78
+     5       HGA3      1    LIG   HC12      5       0.09      1.008   ; qtot -0.69
+     6       HGA3      1    LIG   HC13      6       0.09      1.008   ; qtot -0.6
+     7       HGA2      1    LIG   HC21      7       0.09      1.008   ; qtot -0.51
+     8       HGA2      1    LIG   HC22      8       0.09      1.008   ; qtot -0.42
+     9       HGP1      1    LIG    HO2      9       0.42      1.008   ; qtot 0
+
+#endif
+[ bonds ]
+    1     2     1
+    1     4     1
+    1     5     1
+    1     6     1
+    2     3     1
+    2     7     1
+    2     8     1
+    3     9     1
+
+[ pairs ]
+;  ai    aj funct            c0            c1            c2            c3
+    1     9     1
+    3     4     1
+    3     5     1
+    3     6     1
+    4     7     1
+    4     8     1
+    5     7     1
+    5     8     1
+    6     7     1
+    6     8     1
+    7     9     1
+    8     9     1
+
+[ angles ]
+;  ai    aj    ak funct            c0            c1            c2            c3
+    2     1     4     5
+    2     1     5     5
+    2     1     6     5
+    4     1     5     5
+    4     1     6     5
+    5     1     6     5
+    1     2     3     5
+    1     2     7     5
+    1     2     8     5
+    3     2     7     5
+    3     2     8     5
+    7     2     8     5
+    2     3     9     5
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3            c4            c5
+    4     1     2     3     9
+    4     1     2     7     9
+    4     1     2     8     9
+    5     1     2     3     9
+    5     1     2     7     9
+    5     1     2     8     9
+    6     1     2     3     9
+    6     1     2     7     9
+    6     1     2     8     9
+    1     2     3     9     9
+    7     2     3     9     9
+    8     2     3     9     9
+
+; Include Position restraint file
+
+
+
+#ifdef POSRES
+#include "../posre_ethanol.itp"
+#endif
+
+#ifdef REST_LIG_GROW
+[ position_restraints ]
+    2    1  1000  1000  1000
+#endif
+#ifdef REST_LIG_Z   
+[ position_restraints ]
+    2    1    0    0    1000  
+#endif
+#ifdef REST_LIG_CYL
+[position_restraints ]
+    2    2    2    0.5    500
+#endif
+#ifdef REST_LIG_FE
+[ position_restraints ]
+    2    1  0  0  50   0   0   0
+#endif
+
+#ifdef REST_LIG_FE_XY
+[position_restraints ]
+    2    1   50 50   0   0   0   0
+#endif

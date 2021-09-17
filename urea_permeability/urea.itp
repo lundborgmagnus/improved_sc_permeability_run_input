@@ -1,0 +1,107 @@
+[ moleculetype ]
+; Name            nrexcl
+urea	3
+
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue   1 LIG rtp LIG  q  0.0
+;  ai    aj funct            c0            c1            c2            c3
+[ atoms ]
+#ifdef HEAVY_H
+     1       C2O6      1    LIG     C1      1        0.6     12.011 ; qtot 0.6
+     2       O2D1      1    LIG    OC1      2      -0.58     15.999 ; qtot 0.02
+     3       N2S2      1    LIG   NC11      3      -0.69      9.975 ; qtot -0.67
+     4       N2S2      1    LIG   NC12      4      -0.69      9.975 ; qtot -1.36
+     5       HGP1      1    LIG    HN1      5       0.34      3.024 ; qtot -1.02
+     6       HGP1      1    LIG    HN2      6       0.34      3.024 ; qtot -0.68
+     7       HGP1      1    LIG    HN3      7       0.34      3.024 ; qtot -0.34
+     8       HGP1      1    LIG    HN4      8       0.34      3.024 ; qtot 0
+
+#else
+     1       C2O6      1    LIG     C1      1        0.6     12.011   ; qtot 0.6
+     2       O2D1      1    LIG    OC1      2      -0.58     15.999   ; qtot 0.02
+     3       N2S2      1    LIG   NC11      3      -0.69     14.007   ; qtot -0.67
+     4       N2S2      1    LIG   NC12      4      -0.69     14.007   ; qtot -1.36
+     5       HGP1      1    LIG    HN1      5       0.34      1.008   ; qtot -1.02
+     6       HGP1      1    LIG    HN2      6       0.34      1.008   ; qtot -0.68
+     7       HGP1      1    LIG    HN3      7       0.34      1.008   ; qtot -0.34
+     8       HGP1      1    LIG    HN4      8       0.34      1.008   ; qtot 0
+
+#endif
+[ bonds ]
+    1     2     1 
+    1     3     1 
+    1     4     1 
+    3     5     1 
+    3     6     1 
+    4     7     1 
+    4     8     1 
+
+[ pairs ]
+;  ai    aj funct            c0            c1            c2            c3
+    2     5     1 
+    2     6     1 
+    2     7     1 
+    2     8     1 
+    3     7     1 
+    3     8     1 
+    4     5     1 
+    4     6     1 
+
+[ angles ]
+;  ai    aj    ak funct            c0            c1            c2            c3
+    2     1     3     5 
+    2     1     4     5 
+    3     1     4     5 
+    1     3     5     5 
+    1     3     6     5 
+    5     3     6     5 
+    1     4     7     5 
+    1     4     8     5 
+    7     4     8     5 
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3            c4            c5
+    2     1     3     5     9 
+    2     1     3     6     9 
+    4     1     3     5     9 
+    4     1     3     6     9 
+    2     1     4     7     9 
+    2     1     4     8     9 
+    3     1     4     7     9 
+    3     1     4     8     9 
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3
+    3     1     6     5     2 
+    3     1     5     6     2 
+    4     1     8     7     2 
+    4     1     7     8     2 
+
+; Include Position restraint file
+
+
+
+#ifdef POSRES || POSRES_LIG
+#include "../posre_urea.itp"
+#endif
+
+#ifdef REST_LIG_GROW
+[ position_restraints ]
+    1    1  1000  1000  1000
+#endif
+#ifdef REST_LIG_Z   
+[ position_restraints ]
+    1    1    0    0    1000  
+#endif
+#ifdef REST_LIG_CYL
+[position_restraints ]
+    1    2    2    0.5    500
+#endif
+#ifdef REST_LIG_FE
+[position_restraints ]
+    1    1    0  0  50   0   0   0
+#endif
+#ifdef REST_LIG_FE_XY
+[position_restraints ]
+    1    1   50 50   0   0   0   0
+#endif

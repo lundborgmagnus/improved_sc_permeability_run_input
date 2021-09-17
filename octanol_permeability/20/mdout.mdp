@@ -1,0 +1,403 @@
+;
+;	File 'mdout.mdp' was generated
+;	By user: magnusl (10013)
+;	On host: tcbl11
+;	At date: Fri Sep 17 17:00:29 2021
+;
+;	Created by:
+;	       :-) GROMACS - gmx grompp, 2021-beta3-dev-20210120-4b8de530ba (-:
+;	
+;	Executable:   /home/magnusl/install/gromacs_2021_symm_128awhblocks_build/install/bin/gmx
+;	Data prefix:  /home/magnusl/install/gromacs_2021_symm_128awhblocks_build/install
+;	Working dir:  /home/magnusl/tmp/improved_sc_permeability_run_input/octanol_permeability/20
+;	Command line:
+;	  gmx grompp -f ../grompp.mdp -p ../topol.top -c conf_20.gro -n ../index.ndx -maxwarn 1
+
+; VARIOUS PREPROCESSING OPTIONS
+; Preprocessor information: use cpp syntax.
+; e.g.: -I/home/joe/doe -I/home/mary/roe
+include                  = 
+; e.g.: -DPOSRES -DFLEXIBLE (note these variable names are case sensitive)
+define                   = -DHEAVY_H
+
+; RUN CONTROL PARAMETERS
+integrator               = sd
+; Start time and timestep in ps
+tinit                    = 0.0
+dt                       = 0.003
+nsteps                   = 150000000
+; For exact run continuation or redoing part of a run
+init-step                = 0
+; Part index is updated automatically on checkpointing (keeps files separate)
+simulation-part          = 1
+; Multiple time-stepping
+mts                      = no
+; mode for center of mass motion removal
+comm_mode                = Linear
+; number of steps for center of mass motion removal
+nstcomm                  = 100
+; group(s) for center of mass motion removal
+comm_grps                = system
+
+; LANGEVIN DYNAMICS OPTIONS
+; Friction coefficient (amu/ps) and random seed
+bd-fric                  = 0
+ld-seed                  = -1
+
+; ENERGY MINIMIZATION OPTIONS
+; Force tolerance and initial step-size
+emtol                    = 10
+emstep                   = 0.01
+; Max number of iterations in relax-shells
+niter                    = 20
+; Step size (ps^2) for minimization of flexible constraints
+fcstep                   = 0
+; Frequency of steepest descents steps when doing CG
+nstcgsteep               = 1000
+nbfgscorr                = 10
+
+; TEST PARTICLE INSERTION OPTIONS
+rtpi                     = 0.05
+
+; OUTPUT CONTROL OPTIONS
+; Output frequency for coords (x), velocities (v) and forces (f)
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+; Output frequency for energies to log file and energy file
+nstlog                   = 200000
+nstcalcenergy            = 100
+nstenergy                = 5000000
+; Output frequency and precision for .xtc file
+nstxout-compressed       = 2000000
+compressed-x-precision   = 1000
+; This selects the subset of atoms for the compressed
+; trajectory file. You can select multiple groups. By
+; default, all atoms will be written.
+compressed-x-grps        = 
+; Selection of energy groups
+energygrps               = 
+
+; NEIGHBORSEARCHING PARAMETERS
+; cut-off scheme (Verlet: particle based cut-offs)
+cutoff-scheme            = Verlet
+; nblist update frequency
+nstlist                  = 100
+; Periodic boundary conditions: xyz, no, xy
+pbc                      = xyz
+periodic-molecules       = no
+; Allowed energy error due to the Verlet buffer in kJ/mol/ps per atom,
+; a value of -1 means: use rlist
+verlet-buffer-tolerance  = -1
+; nblist cut-off        
+rlist                    = 1.45
+; long-range cut-off for switched potentials
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+; Method for doing electrostatics
+coulombtype              = pme
+coulomb-modifier         = Potential-shift-Verlet
+rcoulomb-switch          = 0
+rcoulomb                 = 1.2
+; Relative dielectric constant for the medium and the reaction field
+epsilon-r                = 1
+epsilon-rf               = 0
+; Method for doing Van der Waals
+vdwtype                  = Cut-off
+vdw-modifier             = Force-switch
+; cut-off lengths       
+rvdw_switch              = 1.0
+rvdw                     = 1.2
+; Apply long range dispersion corrections for Energy and Pressure
+DispCorr                 = No
+; Extension of the potential lookup tables beyond the cut-off
+table-extension          = 1.0
+; Separate tables between energy group pairs
+energygrp-table          = 
+; Spacing for the PME/PPPM FFT grid
+fourierspacing           = 0.12
+; FFT grid size, when a value is 0 fourierspacing will be used
+fourier-nx               = 0
+fourier-ny               = 0
+fourier-nz               = 0
+; EWALD/PME/PPPM parameters
+pme-order                = 4
+ewald-rtol               = 1e-05
+ewald-rtol-lj            = 0.001
+lj-pme-comb-rule         = Geometric
+ewald-geometry           = 3d
+epsilon-surface          = 0
+implicit-solvent         = no
+
+; OPTIONS FOR WEAK COUPLING ALGORITHMS
+; Temperature coupling  
+tcoupl                   = No
+nsttcouple               = -1
+nh-chain-length          = 10
+print-nose-hoover-chain-variables = no
+; Groups to couple separately
+tc_grps                  = system
+; Time constant (ps) and reference temperature (K)
+tau_t                    = 2.0
+ref_t                    = 305.15
+; pressure coupling     
+pcoupl                   = c-rescale
+pcoupltype               = semiisotropic
+nstpcouple               = 10
+; Time constant (ps), compressibility (1/bar) and reference P (bar)
+tau-p                    = 1.0
+compressibility          = 4.5e-5 0
+ref-p                    = 1.0 1.0
+; Scaling of reference coordinates, No, All or COM
+refcoord_scaling         = all
+
+; OPTIONS FOR QMMM calculations
+QMMM                     = no
+; Groups treated with MiMiC
+QMMM-grps                = 
+
+; SIMULATED ANNEALING  
+; Type of annealing for each temperature group (no/single/periodic)
+annealing                = 
+; Number of time points to use for specifying annealing in each group
+annealing-npoints        = 
+; List of times at the annealing points for each group
+annealing-time           = 
+; Temp. at each annealing point, for each group.
+annealing-temp           = 
+
+; GENERATE VELOCITIES FOR STARTUP RUN
+gen-vel                  = no
+gen-temp                 = 300
+gen-seed                 = -1
+
+; OPTIONS FOR BONDS    
+constraints              = h-bonds
+; Type of constraint algorithm
+constraint_algorithm     = LINCS
+; Do not constrain the start configuration
+continuation             = no
+; Use successive overrelaxation to reduce the number of shake iterations
+Shake-SOR                = no
+; Relative tolerance of shake
+shake-tol                = 0.0001
+; Highest order in the expansion of the constraint coupling matrix
+lincs-order              = 4
+; Number of iterations in the final step of LINCS. 1 is fine for
+; normal simulations, but use 2 to conserve energy in NVE runs.
+; For energy minimization with constraints it should be 4 to 8.
+lincs-iter               = 1
+; Lincs will write a warning to the stderr if in one step a bond
+; rotates over more degrees than
+lincs-warnangle          = 30
+; Convert harmonic bonds to morse potentials
+morse                    = no
+
+; ENERGY GROUP EXCLUSIONS
+; Pairs of energy groups for which all non-bonded interactions are excluded
+energygrp-excl           = 
+
+; WALLS                
+; Number of walls, type, atom types, densities and box-z scale factor for Ewald
+nwall                    = 0
+wall-type                = 9-3
+wall-r-linpot            = -1
+wall-atomtype            = 
+wall-density             = 
+wall-ewald-zfac          = 3
+
+; COM PULLING          
+pull                     = yes
+; Cylinder radius for dynamic reaction force groups (nm)
+pull-cylinder-r          = 1.5
+pull-constr-tol          = 1e-06
+pull-print-com           = no
+pull-print-ref-value     = no
+pull-print-components    = no
+pull_nstxout             = 50000
+pull_nstfout             = 100000
+pull-pbc-ref-prev-step-com = yes
+pull-xout-average        = no
+pull_fout_average        = no
+; Number of pull groups 
+pull_ngroups             = 2
+; Number of pull coordinates
+pull_ncoords             = 1
+; Group and coordinate parameters
+pull_group1_name         = PullRef
+pull-group1-weights      = 
+pull_group1_pbcatom      = 16648
+pull_group2_name         = octanol
+pull-group2-weights      = 
+pull-group2-pbcatom      = 0
+pull_coord1_type         = external-potential
+pull_coord1_potential_provider = awh
+pull_coord1_geometry     = direction
+pull_coord1_groups       = 1 2
+pull_coord1_dim          = N N Y
+pull-coord1-origin       = 0.0 0.0 0.0
+pull_coord1_vec          = 0 0 1
+pull_coord1_start        = yes
+pull-coord1-init         = 0
+pull-coord1-rate         = 0
+pull-coord1-k            = 0
+pull-coord1-kB           = 0
+
+; AWH biasing          
+awh                      = yes
+; The way to apply the biasing potential: convolved or umbrella
+awh_potential            = umbrella
+; The random seed used for sampling the umbrella center in the case of umbrella type potential
+awh-seed                 = -1
+; Data output interval in number of steps
+awh_nstout               = 5000000
+; Coordinate sampling interval in number of steps
+awh_nstsample            = 100
+; Free energy and bias update interval in number of samples
+awh_nsamples-update      = 10
+; When true, biases with share-group>0 are shared between multiple simulations
+awh_share_multisim       = yes
+; The number of independent AWH biases
+awh_nbias                = 1
+; Estimated initial PMF error (kJ/mol)
+awh1_error_init          = 10
+; Growth rate of the reference histogram determining the bias update size: exp-linear or linear
+awh1_growth              = exp-linear
+; Start the simulation by equilibrating histogram towards the target distribution: no or yes
+awh1_equilibrate_histogram = yes
+; Target distribution type: constant, cutoff, boltzmann or local-boltzmann
+awh1_target              = constant
+; Boltzmann beta scaling factor for target distribution types 'boltzmann' and 'boltzmann-local'
+awh1-target-beta-scaling = 0
+; Free energy cutoff value for target distribution type 'cutoff'
+awh1-target-cutoff       = 0
+; Initialize PMF and target with user data: no or yes
+awh1_user_data           = yes
+; Group index to share the bias with, 0 means not shared
+awh1_share_group         = 1
+; Dimensionality of the coordinate
+awh1_ndim                = 2
+; The provider of the reaction coordinate, currently only 'pull' and 'fep-lambda' (free energy lambda state) is supported
+awh1_dim1_coord_provider = pull
+; The coordinate index for this dimension
+awh1_dim1_coord_index    = 1
+; Start and end values for each coordinate dimension
+awh1_dim1_start          = 0
+awh1_dim1_end            = 5.2151048
+; Make the coordinate dimension symmetric around the origin (0).
+; Negative coordinate samples affect the bias in the positive coordinate range and 
+; are in turn affected by the same bias as positive coordinate samples.
+awh1-dim1-symmetric      = yes
+; The force constant for this coordinate (kJ/mol/nm^2 or kJ/mol/rad^2)
+awh1_dim1_force_constant = 25000
+; Estimated diffusion constant (nm^2/ps, rad^2/ps or ps^-1)
+awh1_dim1_diffusion      = 2e-5
+; Diameter that needs to be sampled around a point before it is considered covered. In FEP dimensions the cover diameter is specified in lambda states.
+awh1_dim1_cover-diameter = 0.8
+awh1-dim2-coord-provider = fep-lambda
+awh1-dim2-coord-index    = 1
+awh1-dim2-start          = 0
+awh1-dim2-end            = 20
+awh1-dim2-symmetric      = no
+awh1-dim2-force-constant = 0
+awh1-dim2-diffusion      = 5e-5
+awh1-dim2-cover-diameter = 21
+
+; ENFORCED ROTATION    
+; Enforced rotation: No or Yes
+rotation                 = no
+
+; Group to display and/or manipulate in interactive MD session
+IMD-group                = 
+
+; NMR refinement stuff 
+; Distance restraints type: No, Simple or Ensemble
+disre                    = No
+; Force weighting of pairs in one distance restraint: Conservative or Equal
+disre-weighting          = Conservative
+; Use sqrt of the time averaged times the instantaneous violation
+disre-mixed              = no
+disre-fc                 = 1000
+disre-tau                = 0
+; Output frequency for pair distances to energy file
+nstdisreout              = 100
+; Orientation restraints: No or Yes
+orire                    = no
+; Orientation restraints force constant and tau for time averaging
+orire-fc                 = 0
+orire-tau                = 0
+orire-fitgrp             = 
+; Output frequency for trace(SD) and S to energy file
+nstorireout              = 100
+
+; Free energy variables
+free-energy              = yes
+couple-moltype           = octanol
+couple-lambda0           = none
+couple-lambda1           = vdwq
+couple-intramol          = no
+init-lambda              = -1
+init-lambda-state        = 20
+delta-lambda             = 0
+nstdhdl                  = 5000000
+fep-lambdas              = 1.00 0.95 0.90 0.85 0.80 0.75 0.70 0.65 0.60 0.55 0.50 0.45 0.40 0.35 0.30 0.25 0.20 0.15 0.10 0.05 0.00
+mass-lambdas             = 
+coul-lambdas             = 
+vdw-lambdas              = 
+bonded-lambdas           = 
+restraint-lambdas        = 
+temperature-lambdas      = 
+calc-lambda-neighbors    = -1
+init-lambda-weights      = 
+dhdl-print-energy        = no
+sc_alpha                 = 0.5
+sc_power                 = 1
+sc-r-power               = 6
+sc_sigma                 = 0.3
+sc_coul                  = yes
+separate-dhdl-file       = no
+dhdl-derivatives         = yes
+dh_hist_size             = 0
+dh_hist_spacing          = 0.1
+
+; Non-equilibrium MD stuff
+acc-grps                 = 
+accelerate               = 
+freezegrps               = 
+freezedim                = 
+cos-acceleration         = 0
+deform                   = 
+
+; simulated tempering variables
+simulated-tempering      = no
+simulated-tempering-scaling = geometric
+sim-temp-low             = 300
+sim-temp-high            = 300
+
+; Ion/water position swapping for computational electrophysiology setups
+; Swap positions along direction: no, X, Y, Z
+swapcoords               = no
+adress                   = no
+
+; User defined thingies
+user1-grps               = 
+user2-grps               = 
+userint1                 = 0
+userint2                 = 0
+userint3                 = 0
+userint4                 = 0
+userreal1                = 0
+userreal2                = 0
+userreal3                = 0
+userreal4                = 0
+; Electric fields
+; Format for electric-field-x, etc. is: four real variables:
+; amplitude (V/nm), frequency omega (1/ps), time for the pulse peak (ps),
+; and sigma (ps) width of the pulse. Omega = 0 means static field,
+; sigma = 0 means no pulse, leaving the field to be a cosine function.
+electric-field-x         = 0 0 0 0
+electric-field-y         = 0 0 0 0
+electric-field-z         = 0 0 0 0
+
+; Density guided simulation
+density-guided-simulation-active = false

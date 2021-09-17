@@ -1,0 +1,120 @@
+[ moleculetype ]
+; Name            nrexcl
+dmso	3
+
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue   1 LIG rtp LIG  q  0.0
+;  ai    aj funct            c0            c1            c2            c3
+[ atoms ]
+#ifdef HEAVY_H
+     1       S3O1      1    LIG    SC3      1       0.31      32.06 ; qtot 0.31
+     2       O2P1      1    LIG    OS3      2      -0.55     15.999 ; qtot -0.24
+     3       C331      1    LIG     C3      3      -0.15      5.963 ; qtot -0.39
+     4       C331      1    LIG     C4      4      -0.15      5.963 ; qtot -0.54
+     5       HGA3      1    LIG   HC31      5       0.09      3.024 ; qtot -0.45
+     6       HGA3      1    LIG   HC32      6       0.09      3.024 ; qtot -0.36
+     7       HGA3      1    LIG   HC33      7       0.09      3.024 ; qtot -0.27
+     8       HGA3      1    LIG   HC41      8       0.09      3.024 ; qtot -0.18
+     9       HGA3      1    LIG   HC42      9       0.09      3.024 ; qtot -0.09
+    10       HGA3      1    LIG   HC43     10       0.09      3.024 ; qtot 0
+
+#else
+     1       S3O1      1    LIG    SC3      1       0.31      32.06   ; qtot 0.31
+     2       O2P1      1    LIG    OS3      2      -0.55     15.999   ; qtot -0.24
+     3       C331      1    LIG     C3      3      -0.15     12.011   ; qtot -0.39
+     4       C331      1    LIG     C4      4      -0.15     12.011   ; qtot -0.54
+     5       HGA3      1    LIG   HC31      5       0.09      1.008   ; qtot -0.45
+     6       HGA3      1    LIG   HC32      6       0.09      1.008   ; qtot -0.36
+     7       HGA3      1    LIG   HC33      7       0.09      1.008   ; qtot -0.27
+     8       HGA3      1    LIG   HC41      8       0.09      1.008   ; qtot -0.18
+     9       HGA3      1    LIG   HC42      9       0.09      1.008   ; qtot -0.09
+    10       HGA3      1    LIG   HC43     10       0.09      1.008   ; qtot 0
+
+#endif
+[ bonds ]
+    1     2     1
+    1     3     1
+    1     4     1
+    3     5     1
+    3     6     1
+    3     7     1
+    4     8     1
+    4     9     1
+    4    10     1
+
+[ pairs ]
+;  ai    aj funct            c0            c1            c2            c3
+    2     5     1
+    2     6     1
+    2     7     1
+    2     8     1
+    2     9     1
+    2    10     1
+    3     8     1
+    3     9     1
+    3    10     1
+    4     5     1
+    4     6     1
+    4     7     1
+
+[ angles ]
+;  ai    aj    ak funct            c0            c1            c2            c3
+    2     1     3     5
+    2     1     4     5
+    3     1     4     5
+    1     3     5     5
+    1     3     6     5
+    1     3     7     5
+    5     3     6     5
+    5     3     7     5
+    6     3     7     5
+    1     4     8     5
+    1     4     9     5
+    1     4    10     5
+    8     4     9     5
+    8     4    10     5
+    9     4    10     5
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3            c4            c5
+    2     1     3     5     9
+    2     1     3     6     9
+    2     1     3     7     9
+    4     1     3     5     9
+    4     1     3     6     9
+    4     1     3     7     9
+    2     1     4     8     9
+    2     1     4     9     9
+    2     1     4    10     9
+    3     1     4     8     9
+    3     1     4     9     9
+    3     1     4    10     9
+
+; Include Position restraint file
+
+
+
+#ifdef POSRES || POSRES_LIG
+#include "../posre_dmso.itp"
+#endif
+#ifdef REST_LIG_GROW
+[ position_restraints ]
+    1    1  1000  1000  1000
+#endif
+#ifdef REST_LIG_Z   
+[ position_restraints ]
+    1    1    0    0    1000  
+#endif
+#ifdef REST_LIG_CYL
+[position_restraints ]
+    1    2    2    0.5    500
+#endif
+#ifdef REST_LIG_FE
+[ position_restraints ]
+    1    1  0  0  50   0   0   0
+#endif
+
+#ifdef REST_LIG_FE_XY
+[position_restraints ]
+    1    1   50 50   0   0   0   0
+#endif

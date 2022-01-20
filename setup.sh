@@ -1,9 +1,8 @@
 #!/bin/bash
-source ~/install/gromacs_2021_symm_128awhblocks_build/install/bin/GMXRC.bash
 
 if [ $# -lt 1 ]; then
     echo "Usage:"
-    echo "setup_runs_awh_fep.sh moleculename systemname nConfs"
+    echo "setup.sh moleculename"
     exit 1
 fi
 PROJECTNAME=${1}_permeability

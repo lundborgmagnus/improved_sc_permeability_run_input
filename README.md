@@ -30,7 +30,7 @@ Separate directories are created for each permeant. These directories, in turn, 
 mpirun -np 24 gmx_mpi mdrun -multidir 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 -cpi
 
 It is recommended to generate the input, and run the simulations, with a version of GROMACS able to symmetrize AWH sampling, such as:
-https://gitlab.com/gromacs/gromacs/-/tree/2021-awhsymm-fepsimd-fixes-awhcorrblocks
+https://gitlab.com/gromacs/gromacs/-/tree/2022-awhsymm-awhcorrblocks
 Otherwise it is possible to use an MDP file that is not using symmetric sampling by setting
 USE_SYMMETRIC_SAMPLING=False
 in setup.sh.
